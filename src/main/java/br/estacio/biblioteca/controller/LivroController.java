@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("api/v1/livro")
+@RequestMapping("api/v1/livros")
 public class LivroController {
 
     @Autowired
@@ -34,7 +34,8 @@ public class LivroController {
         return ResponseEntity.status(livro.isPresent() ? HttpStatus.OK : HttpStatus.NOT_FOUND).body(livro);
     }
     @PostMapping
-    public ResponseEntity<Livro> create(@RequestBody Livro product){
-        return ResponseEntity.status(HttpStatus.CREATED).body(livroService.save(product));
+    public ResponseEntity<Livro> create(@RequestBody Livro livro){
+        return ResponseEntity.status(HttpStatus.CREATED).body(livroService.save(livro));
     }
+
 }

@@ -83,6 +83,10 @@ src
 │       └── static                  # Arquivos estáticos
 └── test
 ```
+
+---
+### Diagrama de Classes
+<img src="./docs/assets/diagram.png">
 ---
 
-Se precisar de mais ajustes ou detalhes, posso ajudar!
+Se precisar de mais ajustes ou detalhes, posso ajudar~
