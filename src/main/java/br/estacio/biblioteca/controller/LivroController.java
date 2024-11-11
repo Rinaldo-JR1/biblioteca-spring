@@ -33,4 +33,8 @@ public class LivroController {
         }
         return ResponseEntity.status(livro.isPresent() ? HttpStatus.OK : HttpStatus.NOT_FOUND).body(livro);
     }
+    @PostMapping
+    public ResponseEntity<Livro> create(@RequestBody Livro product){
+        return ResponseEntity.status(HttpStatus.CREATED).body(livroService.save(product));
+    }
 }
