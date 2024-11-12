@@ -1,0 +1,38 @@
+services:
+  app:
+    build: .
+    container_name: biblioteca-app
+    env_file:
+      - .env
+    ports:
+        - "9090:9090"
+    depends_on:
+      biblioteca-db:
+        condition: service_healthy
+        restart: true
+    healthcheck:
+      test: ["CMD", "sh", "-c", "curl -f http://localhost:9090 || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    restart: unless-stopped
+
+  biblioteca-db:
+    container_name: biblioteca-db
+    env_file:
+      - .env
+    image: postgres:14.6
+    ports:
+      - "${DB_PORT}:5432"
+    command: [ "postgres", "-c", "log_statement=all", "-c", "log_destination=stderr" ]
+    volumes:
+      - biblioteca-db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+volumes:
+  biblioteca-db-data:
