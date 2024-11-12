@@ -24,15 +24,19 @@ No arquivo `application.properties`, estão configuradas as seguintes propriedad
 spring.application.name=biblioteca
 
 # Configuração do banco de dados
-spring.datasource.url=jdbc:postgresql://localhost:5432/biblioteca
-spring.datasource.username=postgres
-spring.datasource.password=crYJBxTEa9ka6t
+spring.datasource.url = jdbc:postgresql://${DB_HOST}:5432/${POSTGRES_DB}
+spring.datasource.username=${POSTGRES_USER}
+spring.datasource.password=${POSTGRES_PASSWORD}
 
-# JPA e Hibernate
+# jpa
 spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
 spring.jpa.hibernate.ddl-auto=update
 spring.jpa.properties.hibernate.show_sql=true
 spring.jpa.properties.hibernate.format_sql=true
+
+
+# Porta do servidor que será mapeado no docker/host
+server.port=9090
 ```
 
 ### Explicação das Propriedades
@@ -44,6 +48,7 @@ spring.jpa.properties.hibernate.format_sql=true
 - **`spring.jpa.hibernate.ddl-auto`**: Garante que o esquema do banco de dados seja atualizado automaticamente com base nas entidades do projeto.
 - **`spring.jpa.properties.hibernate.show_sql`**: Exibe as queries SQL executadas no console.
 - **`spring.jpa.properties.hibernate.format_sql`**: Formata as queries SQL para melhor legibilidade.
+- **`server.port`**: Porta em que a aplicação será executada.
 
 ### Como Executar
 
@@ -90,3 +95,29 @@ src
 ---
 
 Se precisar de mais ajustes ou detalhes, posso ajudar~
+
+
+### Contribuindo usando o docker
+
+Para contribuir com o projeto, você pode usar o docker para subir o ambiente de desenvolvimento. Para isso, siga os passos abaixo:
+
+1.Instale o docker e o docker-compose em sua máquina.
+[Instalação do Docker](https://docs.docker.com/get-docker/)
+[Instalação do Compose](https://docs.docker.com/compose/install/)
+
+2. copie o arquivo .env.example para .env e preencha as variáveis de ambiente.
+```bash
+cp .env.example .env
+```
+
+3. Execute o comando abaixo para subir o ambiente de desenvolvimento.
+```bash
+docker-compose up --build
+```
+
+4. Verifique se o container está rodando.
+```bash
+docker ps
+```
+
+5. Pronto! Agora você pode acessar o projeto em [http://localhost:9090](http://localhost:9090).
