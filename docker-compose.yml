@@ -5,13 +5,13 @@ services:
     env_file:
       - .env
     ports:
-        - "9090:9090"
+        - "${APP_PORT}:9090"
     depends_on:
       biblioteca-db:
         condition: service_healthy
         restart: true
     healthcheck:
-      test: ["CMD", "sh", "-c", "curl -f http://localhost:9090 || exit 1"]
+      test: ["CMD", "sh", "-c", "curl -f http://localhost:${APP_PORT} || exit 1"]
       interval: 30s
       timeout: 10s
       retries: 5
