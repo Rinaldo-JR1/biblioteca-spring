@@ -15,4 +15,6 @@ public interface AluguelService {
     Aluguel update(Aluguel livro);
     void deleteById(Long id);
 
+    List<Aluguel> findAlugueisWithLivroByClienteId(Long clienteId);
+    Aluguel criarAluguel(Long clienteId, Long livroId);
 }

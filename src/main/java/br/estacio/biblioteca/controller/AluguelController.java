@@ -14,26 +14,38 @@ import java.util.Optional;
 @RestController
 @RequestMapping("api/v1/alugueis")
 public class AluguelController {
+
     @Autowired
     private AluguelService aluguelService;
-    @GetMapping
 
+    @GetMapping("/all")
     public ResponseEntity<ApiResponse<List<Aluguel>>> findAll() {
-        List<Aluguel> algueis = aluguelService.findAll();
-        String message = algueis.isEmpty() ? "Nenhum aluguel encontrado" : "Alugueis encontrados com sucesso";
-        return ResponseEntity.status(algueis.isEmpty() ? HttpStatus.NOT_FOUND : HttpStatus.OK)
-                .body(new ApiResponse<>(message, algueis));
+        List<Aluguel> alugueis = aluguelService.findAll();
+        String message = alugueis.isEmpty() ? "Nenhum aluguel encontrado" : "Aluguéis encontrados com sucesso";
+        return ResponseEntity.status(alugueis.isEmpty() ? HttpStatus.NOT_FOUND : HttpStatus.OK)
+                .body(new ApiResponse<>(message, alugueis));
     }
+
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<Aluguel>> findById(@PathVariable Long id){
-        Optional<Aluguel>  aluguel = aluguelService.findById(id);
-        if(aluguel.isEmpty()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(aluguel);
-        }
-        return ResponseEntity.status(aluguel.isPresent() ? HttpStatus.OK : HttpStatus.NOT_FOUND).body(aluguel);
+    public ResponseEntity<ApiResponse<Optional<Aluguel>>> findById(@PathVariable Long id) {
+        Optional<Aluguel> aluguel = aluguelService.findById(id);
+        String message = aluguel.isPresent() ? "Aluguel encontrado" : "Aluguel não encontrado";
+        return ResponseEntity.status(aluguel.isPresent() ? HttpStatus.OK : HttpStatus.NOT_FOUND)
+                .body(new ApiResponse<>(message, aluguel));
     }
+
+    @GetMapping("/cliente/{clientId}")
+    public ResponseEntity<ApiResponse<List<Aluguel>>> findByClientId(@PathVariable Long clientId) {
+        List<Aluguel> alugueis = aluguelService.findAlugueisWithLivroByClienteId(clientId);
+        String message = alugueis.isEmpty() ? "Nenhum aluguel encontrado para este cliente" : "Aluguéis encontrados com sucesso";
+        return ResponseEntity.status(alugueis.isEmpty() ? HttpStatus.NOT_FOUND : HttpStatus.OK)
+                .body(new ApiResponse<>(message, alugueis));
+    }
+
     @PostMapping
-    public ResponseEntity<Aluguel> create(@RequestBody Aluguel aluguel){
-        return ResponseEntity.status(HttpStatus.CREATED).body(aluguelService.save(aluguel));
+    public ResponseEntity<ApiResponse<Aluguel>> create(@RequestBody Aluguel aluguel) {
+        Aluguel createdAluguel = aluguelService.criarAluguel(aluguel.getCliente().getId(),aluguel.getLivro().getId());
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(new ApiResponse<>("Aluguel criado com sucesso", createdAluguel));
     }
 }
