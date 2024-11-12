@@ -13,26 +13,24 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("api/v1/clientes")
+@CrossOrigin(origins = "*")
 public class ClienteController {
 
     @Autowired
     private ClienteService clienteService;
-
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<ApiResponse<Cliente>> save(@RequestBody Cliente cliente) {
         Cliente savedCliente = clienteService.save(cliente);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(new ApiResponse<>("Cliente criado com sucesso", savedCliente));
     }
-
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<ApiResponse<List<Cliente>>> findAll() {
         List<Cliente> clientes = clienteService.findAll();
         String message = clientes.isEmpty() ? "Nenhum cliente encontrado" : "Clientes encontrados com sucesso";
         return ResponseEntity.status(clientes.isEmpty() ? HttpStatus.NOT_FOUND : HttpStatus.OK)
                 .body(new ApiResponse<>(message, clientes));
     }
-
     @GetMapping("/{id}")
     public ResponseEntity<ApiResponse<Optional<Cliente>>> findById(@PathVariable Long id) {
         Optional<Cliente> cliente = clienteService.findById(id);
@@ -40,14 +38,13 @@ public class ClienteController {
         return ResponseEntity.status(cliente.isPresent() ? HttpStatus.OK : HttpStatus.NOT_FOUND)
                 .body(new ApiResponse<>(message, cliente));
     }
-
     @PutMapping
+    @CrossOrigin(origins = "*")
     public ResponseEntity<ApiResponse<Cliente>> update(@RequestBody Cliente cliente) {
         Cliente updatedCliente = clienteService.update(cliente);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(new ApiResponse<>("Cliente atualizado com sucesso", updatedCliente));
     }
-
     @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse<Void>> deleteById(@PathVariable Long id) {
         clienteService.deleteById(id);
