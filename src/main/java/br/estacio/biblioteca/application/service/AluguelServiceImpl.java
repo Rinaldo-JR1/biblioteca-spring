@@ -1,11 +1,11 @@
-package br.estacio.biblioteca.service;
+package br.estacio.biblioteca.application.service;
 
-import br.estacio.biblioteca.model.Aluguel;
-import br.estacio.biblioteca.model.Cliente;
-import br.estacio.biblioteca.model.Livro;
-import br.estacio.biblioteca.repository.AluguelRepository;
-import br.estacio.biblioteca.repository.ClienteRepository;
-import br.estacio.biblioteca.repository.LivroRepository;
+import br.estacio.biblioteca.domain.entities.Aluguel;
+import br.estacio.biblioteca.domain.entities.Cliente;
+import br.estacio.biblioteca.domain.entities.Livro;
+import br.estacio.biblioteca.domain.repository.AluguelRepository;
+import br.estacio.biblioteca.domain.repository.ClienteRepository;
+import br.estacio.biblioteca.domain.repository.LivroRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,8 +25,8 @@ public class AluguelServiceImpl implements AluguelService {
     private LivroRepository livroRepository;
 
     @Override
-    public Aluguel save(Aluguel alguel) {
-        return aluguelRepository.save(alguel);
+    public Aluguel save(Aluguel aluguel) {
+        return aluguelRepository.save(aluguel);
     }
 
     @Override
@@ -71,5 +71,13 @@ public class AluguelServiceImpl implements AluguelService {
         livro.setStatus(false);
         livroRepository.save(livro);
         return aluguel;
+    }
+
+    @Override
+    public Aluguel devolver(Long aluguelId) {
+        Aluguel aluguel = aluguelRepository.findById(aluguelId)
+                .orElseThrow(() -> new RuntimeException("Aluguel não encontrado"));
+        aluguel.devolver();
+        return aluguelRepository.save(aluguel);
     }
 }

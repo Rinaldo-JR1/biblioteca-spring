@@ -1,6 +1,6 @@
-package br.estacio.biblioteca.service;
+package br.estacio.biblioteca.application.service;
 
-import br.estacio.biblioteca.model.Livro;
+import br.estacio.biblioteca.domain.entities.Livro;
 
 import java.util.List;
 import java.util.Optional;

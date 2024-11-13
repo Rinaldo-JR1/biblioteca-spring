@@ -1,15 +1,15 @@
-package br.estacio.biblioteca.service;
+package br.estacio.biblioteca.application.service;
 
 
 
-import br.estacio.biblioteca.model.Aluguel;
+import br.estacio.biblioteca.domain.entities.Aluguel;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface AluguelService {
 
-    Aluguel save(Aluguel alguel);
+    Aluguel save(Aluguel aluguel);
     List<Aluguel> findAll();
     Optional<Aluguel> findById(Long id);
     Aluguel update(Aluguel livro);
@@ -17,4 +17,5 @@ public interface AluguelService {
 
     List<Aluguel> findAlugueisWithLivroByClienteId(Long clienteId);
     Aluguel criarAluguel(Long clienteId, Long livroId);
+    Aluguel devolver(Long aluguelId);
 }

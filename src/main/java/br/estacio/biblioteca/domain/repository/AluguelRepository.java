@@ -1,6 +1,6 @@
-package br.estacio.biblioteca.repository;
+package br.estacio.biblioteca.domain.repository;
 
-import br.estacio.biblioteca.model.Aluguel;
+import br.estacio.biblioteca.domain.entities.Aluguel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

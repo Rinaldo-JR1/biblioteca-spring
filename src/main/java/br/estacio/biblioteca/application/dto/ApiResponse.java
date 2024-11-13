@@ -1,4 +1,4 @@
-package br.estacio.biblioteca.dto;
+package br.estacio.biblioteca.application.dto;
 
 public class ApiResponse<T> {
     private String message;
