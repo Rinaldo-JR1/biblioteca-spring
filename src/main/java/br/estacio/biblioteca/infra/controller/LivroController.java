@@ -1,8 +1,8 @@
-package br.estacio.biblioteca.controller;
+package br.estacio.biblioteca.infra.controller;
 
-import br.estacio.biblioteca.dto.ApiResponse;
-import br.estacio.biblioteca.model.Livro;
-import br.estacio.biblioteca.service.LivroService;
+import br.estacio.biblioteca.application.dto.ApiResponse;
+import br.estacio.biblioteca.domain.entities.Livro;
+import br.estacio.biblioteca.application.service.LivroService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

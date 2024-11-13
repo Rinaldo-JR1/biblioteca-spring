@@ -1,4 +1,4 @@
-package br.estacio.biblioteca.model;
+package br.estacio.biblioteca.domain.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;

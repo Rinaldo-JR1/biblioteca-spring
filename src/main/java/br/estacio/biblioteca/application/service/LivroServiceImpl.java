@@ -1,7 +1,7 @@
-package br.estacio.biblioteca.service;
+package br.estacio.biblioteca.application.service;
 
-import br.estacio.biblioteca.model.Livro;
-import br.estacio.biblioteca.repository.LivroRepository;
+import br.estacio.biblioteca.domain.entities.Livro;
+import br.estacio.biblioteca.domain.repository.LivroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
