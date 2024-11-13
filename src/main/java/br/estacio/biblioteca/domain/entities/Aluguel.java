@@ -23,11 +23,17 @@ public class Aluguel {
 
     private LocalDate dataInicio;
     private LocalDate dataFim;
+    private boolean status = true;
 
     @PrePersist
     public void prePersist() {
         this.dataInicio = LocalDate.now();
         this.dataFim = this.dataInicio.plusWeeks(1);
         this.livro.setStatus(false);
+    }
+
+    public void devolver() {
+        this.status = false;
+        this.livro.setStatus(true);
     }
 }

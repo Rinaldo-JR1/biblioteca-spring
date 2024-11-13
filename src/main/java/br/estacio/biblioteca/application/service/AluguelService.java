@@ -17,4 +17,5 @@ public interface AluguelService {
 
     List<Aluguel> findAlugueisWithLivroByClienteId(Long clienteId);
     Aluguel criarAluguel(Long clienteId, Long livroId);
+    Aluguel devolver(Long aluguelId);
 }

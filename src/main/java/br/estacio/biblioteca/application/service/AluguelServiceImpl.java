@@ -72,4 +72,12 @@ public class AluguelServiceImpl implements AluguelService {
         livroRepository.save(livro);
         return aluguel;
     }
+
+    @Override
+    public Aluguel devolver(Long aluguelId) {
+        Aluguel aluguel = aluguelRepository.findById(aluguelId)
+                .orElseThrow(() -> new RuntimeException("Aluguel não encontrado"));
+        aluguel.devolver();
+        return aluguelRepository.save(aluguel);
+    }
 }
